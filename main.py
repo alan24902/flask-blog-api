@@ -1,11 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
+from flask_bootstrap import Bootstrap5
 
 # Create app
 app = Flask(__name__)
+
+# ATTACHING BOOTSTRAP5 TO THE APP
+Bootstrap5(app)
 
 
 # Create Database
@@ -37,6 +41,29 @@ class BlogPost(db.Model):
 # DATABASE CREATED
 with app.app_context():
     db.create_all()
+
+
+# QUERY ALL THE POSTS FORM THE DATABASE
+@app.route("/")
+def get_all_posts():
+
+    posts = []
+
+    return render_template(template_name_or_list="index.html", all_posts=posts)
+
+
+# ABOUT ROUTE
+@app.route("/about")
+def about():
+    return render_template(template_name_or_list="about.html")
+
+
+# CONTACT ROUTE
+@app.route("/contact")
+def contact():
+    return render_template(template_name_or_list="contact.html")
+
+
 
 
 if __name__ == "__main__":
