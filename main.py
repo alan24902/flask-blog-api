@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, jsonify
+from flask import Flask, render_template, redirect, url_for, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
@@ -16,11 +16,11 @@ load_dotenv()
 
 # CREATE APP
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")  # WTForms  REQUIRED A SECRET KEY TO USE CSRF
 # CKEDITOR OBJECT
 ckeditor = CKEditor(app)
 
-# ATTACHING BOOTSTRAP5 TO THE APP
+# ATTACHING BOOTSTRAP 5 TO THE APP
 Bootstrap5(app)
 
 
@@ -184,6 +184,58 @@ def api_get_posts():
         }
         all_posts_list.append(post_dict)
     return jsonify(all_posts_list)
+
+
+# GET A SINGLE POST
+@app.route("/api/posts/<post_id>", methods=["GET"])
+def api_get_post(post_id):
+
+    post = db.get_or_404(BlogPost, post_id)
+
+    post_dict = {
+
+        "id": post.id,
+        "title": post.title,
+        "subtitle": post.subtitle,
+        "date": post.date,
+        "body": post.body,
+        "author": post.author,
+        "img_url": post.img_url
+
+    }
+
+    return jsonify(post_dict)
+
+
+# ADD POST
+@app.route("/api/posts/add-post", methods=["POST"])
+def api_add_post():
+
+    title = request.args.get('title')
+    subtitle = request.args.get('subtitle')
+    date = request.args.get('date')
+    body = request.args.get('body')
+    author = request.args.get('author')
+    img_url = request.args.get('img_url')
+
+    # GETTING THE DATE (MONT,DAY OF THE MONTH, YEAR)
+    date = datetime.now()
+    formated_date = date.strftime("%B %d, %Y")
+
+    post_dict = {
+
+        "title": title,
+        "subtitle": subtitle,
+        "date": formated_date,
+        "body": body,
+        "author": author,
+        "img_url": img_url
+
+    }
+
+    return jsonify(post_dict)
+
+# UPDATE/EDIT POST
 
 
 
