@@ -4,9 +4,14 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 from flask_bootstrap import Bootstrap5
+from flask_ckeditor import CKEditor
+from flask import FlaskForm
 
-# Create app
+
+# CREATE APP
 app = Flask(__name__)
+# CKEDITOR OBJECT
+ckeditor = CKEditor(app)
 
 # ATTACHING BOOTSTRAP5 TO THE APP
 Bootstrap5(app)
@@ -49,7 +54,29 @@ def get_all_posts():
 
     posts = []
 
+    # GETTING ALL POSTS FROM THE DB
+    all_posts = db.session.execute(db.select(BlogPost)).scalars().all()
+
+    for post in all_posts:
+        posts.append(post)
+
     return render_template(template_name_or_list="index.html", all_posts=posts)
+
+
+@app.route("/show_post/<post_id>")
+def show_post(post_id):
+
+    requested_post = db.get_or_404(BlogPost, post_id)
+
+
+    return render_template(template_name_or_list="post.html", post=requested_post)
+
+
+# ADD NEW POST ROUTE
+@app.route("/new-post")
+def new_post():
+
+    return render_template(template_name_or_list="make-post.html")
 
 
 # ABOUT ROUTE
