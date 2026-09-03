@@ -4,12 +4,18 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 from flask_bootstrap import Bootstrap5
-from flask_ckeditor import CKEditor
-from flask import FlaskForm
+from flask_ckeditor import CKEditor, CKEditorField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 # CREATE APP
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 # CKEDITOR OBJECT
 ckeditor = CKEditor(app)
 
@@ -30,6 +36,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///post.db"
 
 # initialize the app with the extension
 db.init_app(app)
+
+
+# CREATING FORM FOR THE BLOG
+class MyForm(FlaskForm):
+    blog_post_title = StringField("Blog Post Title", validators=[DataRequired()])
+    subtitle = StringField("Subtitle", validators=[DataRequired()])
+    your_name = StringField("Your Name", validators=[DataRequired()])
+    blog_image_url = StringField("Blog Name Url", validators=[DataRequired()])
+    blog_content = CKEditorField("Blog Contend", validators=[DataRequired()])
+    submit = SubmitField("Publish")
 
 
 # CONFIGURE TABLE
@@ -76,7 +92,10 @@ def show_post(post_id):
 @app.route("/new-post")
 def new_post():
 
-    return render_template(template_name_or_list="make-post.html")
+    # FLASK-FORM OBJECT
+    form = MyForm()
+
+    return render_template(template_name_or_list="make-post.html", form=form)
 
 
 # ABOUT ROUTE
