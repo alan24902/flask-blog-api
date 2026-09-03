@@ -17,13 +17,16 @@ The project demonstrates backend development with Flask, relational database man
 
 ### Blog Post
 
-![alt text](<Screen Shot 2026-09-03 at 14.51.47 p.m..png>)
+<img width="1889" height="927" alt="Screen Shot 2026-09-03 at 14 51 47 p m" src="https://github.com/user-attachments/assets/3facb165-f6c3-4f00-9669-b82aec5ef574" />
+
 
 ### Create / Edit Post
 
-![alt text](<Screen Shot 2026-09-03 at 14.54.08 p.m..png>)
+<img width="1890" height="923" alt="Screen Shot 2026-09-03 at 14 54 08 p m" src="https://github.com/user-attachments/assets/4d45c5bf-d551-4363-a701-13a292749ad4" />
 
-![alt text](<Screen Shot 2026-09-03 at 14.54.54 p.m..png>)
+
+<img width="1885" height="907" alt="Screen Shot 2026-09-03 at 14 54 54 p m" src="https://github.com/user-attachments/assets/18ea283d-87f1-48e3-9176-6db98debb700" />
+
 
 ----------
 
@@ -454,18 +457,24 @@ You can import the collection into Postman to reproduce the API requests.
 ### Postman Screenshots
 
 ### Collections
-![Postman Collection](<Screen Shot 2026-09-03 at 15.07.06 p.m..png>)
+<img width="215" height="147" alt="Screen Shot 2026-09-03 at 15 07 06 p m" src="https://github.com/user-attachments/assets/5d913577-a913-4764-ba4d-8568ee810684" />
+
 ### GET Request
-![GET Request](<Screen Shot 2026-09-03 at 15.08.35 p.m.-1.png>)
+<img width="1202" height="956" alt="Screen Shot 2026-09-03 at 15 08 35 p m -1" src="https://github.com/user-attachments/assets/e0f6f9ce-1932-49d1-823b-a42f5103bb17" />
+
+
 
 ### POST Request
-![POST Request](<Screen Shot 2026-09-03 at 15.08.35 p.m.-1.png>)
+<img width="1218" height="979" alt="Screen Shot 2026-09-03 at 15 50 29 p m" src="https://github.com/user-attachments/assets/e2f2424f-ea2b-439e-ad83-9e95fb453611" />
+
 
 ### PATCH Request
-![PATCH Request](<Screen Shot 2026-09-03 at 15.11.41 p.m..png>)
+<img width="1217" height="971" alt="Screen Shot 2026-09-03 at 15 11 41 p m" src="https://github.com/user-attachments/assets/8594ed73-700b-40f2-9214-e832d8b077bb" />
+
 
 ### DELETE Request
-![DELETE Request](<Screen Shot 2026-09-03 at 15.13.35 p.m..png>)
+<img width="1211" height="967" alt="Screen Shot 2026-09-03 at 15 13 35 p m" src="https://github.com/user-attachments/assets/d9d968f4-0033-427a-98eb-72a8402f9e21" />
+
 
 ----------
 
