@@ -30,7 +30,7 @@
         <p class="post-meta">
           Posted by
           <a href="#">{{post.author}}</a>
-          on {{post.date}}
+          on {{post.date}} <a href="{{url_for('delete', post_id=post.id)}}"> ✘ </a>
         </p>
       </div>
       <!-- Divider-->
