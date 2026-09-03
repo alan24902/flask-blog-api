@@ -213,7 +213,6 @@ def api_add_post():
 
     title = request.args.get('title')
     subtitle = request.args.get('subtitle')
-    date = request.args.get('date')
     body = request.args.get('body')
     author = request.args.get('author')
     img_url = request.args.get('img_url')
@@ -221,6 +220,12 @@ def api_add_post():
     # GETTING THE DATE (MONT,DAY OF THE MONTH, YEAR)
     date = datetime.now()
     formated_date = date.strftime("%B %d, %Y")
+
+    # ADDING NEW POST TO THE DATABASE
+    new_post_to_add = BlogPost(title=title, subtitle=subtitle, body=body, author=author, img_url=img_url,
+                               date=formated_date)
+    db.session.add(new_post_to_add)
+    db.session.commit()
 
     post_dict = {
 
@@ -233,9 +238,62 @@ def api_add_post():
 
     }
 
-    return jsonify(post_dict)
+    return jsonify(response={"Successfully Added": post_dict})
+
 
 # UPDATE/EDIT POST
+@app.route("/api/posts/<post_id>", methods=['PATCH'])
+def api_update_post(post_id):
+
+    post = db.get_or_404(BlogPost, post_id)
+
+    if request.args.get('title'):
+        post.title = request.args.get('title')
+
+    if request.args.get('subtitle'):
+        post.subtitle = request.args.get('subtitle')
+    if request.args.get('author'):
+        post.author = request.args.get('author')
+    if request.args.get('body'):
+        post.body = request.args.get('body')
+    if request.args.get('img_url'):
+        post.img_url = request.args.get('img_url')
+    db.session.commit()
+
+    post_dict = {
+
+        "title": post.title,
+        "subtitle": post.subtitle,
+        "body": post.body,
+        "author": post.author,
+        "img_url": post.img_url
+
+    }
+
+    return jsonify(Response={"Success Post Updated": post_dict})
+
+
+# DELETE A POST
+@app.route("/api/posts/delete-post/<post_id>", methods=["DELETE"])
+def api_delete_post(post_id):
+
+    api_key = request.args.get('api_key')  # HELPS TO ADD A LAYER OF SECURITY
+
+    delete_post = db.session.get(entity=BlogPost, ident=post_id)  # IF THE post_id IS NOT IN THE DB RETURN A NONE
+
+    if api_key == "YourSecretAPI":
+
+        if delete_post:
+            db.session.delete(delete_post)
+            db.session.commit()
+
+            return jsonify(response={"Success": "The post was deleted."})
+        else:
+
+            return jsonify(error={"Not Found": "Sorry a post with that id was not found in the database."})
+
+    else:
+        return jsonify(error={"API KEY error": "The API KEY is not correct"})
 
 
 
