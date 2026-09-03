@@ -1,0 +1,190 @@
+{
+  "info": {
+    "_postman_id": "fa4d862c-522e-4777-8bb2-81d4b5066012",
+    "name": "BlogCraft",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57498623",
+    "_collection_link": "https://go.postman.co/collection/57498623-fa4d862c-522e-4777-8bb2-81d4b5066012?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get All Posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5003/api/posts",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5003",
+          "path": [
+            "api",
+            "posts"
+          ]
+        },
+        "description": "Retrieves all blog posts from the API.\n\n**Method:** GET  \n**Endpoint:** `/api/posts`\n\nSends a GET request to the `/api/posts` endpoint and returns a list (array) of all available blog posts. No request body, authentication, or additional headers are required."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Single Post",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5003/api/posts/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5003",
+          "path": [
+            "api",
+            "posts",
+            "2"
+          ]
+        },
+        "description": "## Get Single Post\n\nRetrieves a single blog post by its unique identifier.\n\n**Endpoint:** `GET /api/posts/:id`\n\n### Path Parameter\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `id` | integer | Yes | The unique ID of the blog post to retrieve (e.g., `2`) |\n\n### Successful Response\n\nOn success, the endpoint returns a `200 OK` status along with a JSON object representing the requested blog post. The response typically includes details such as the post ID, title, content, author, and timestamps.\n\n### Example Request\n\n```\nGET http://127.0.0.1:5003/api/posts/2\n"
+      },
+      "response": []
+    },
+    {
+      "name": "Add Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5003/api/posts/add-post?title=The Hidden Life of Urban Trees&subtitle=How trees quietly shape the cities we live in&body=Urban trees do much more than make streets look beautiful. They provide shade, reduce surrounding temperatures, improve air quality, and create habitats for birds and insects. Research has shown that neighborhoods with more trees can also become more comfortable and inviting places for people to walk and spend time outdoors. As cities continue to grow, protecting existing trees and planting new ones can play an important role in creating healthier and more resilient urban environments.&author=mily Carter&img_url=https://images.unsplash.com/photo-1511497584788-876760111969",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5003",
+          "path": [
+            "api",
+            "posts",
+            "add-post"
+          ],
+          "query": [
+            {
+              "key": "title",
+              "value": "The Hidden Life of Urban Trees"
+            },
+            {
+              "key": "subtitle",
+              "value": "How trees quietly shape the cities we live in"
+            },
+            {
+              "key": "body",
+              "value": "Urban trees do much more than make streets look beautiful. They provide shade, reduce surrounding temperatures, improve air quality, and create habitats for birds and insects. Research has shown that neighborhoods with more trees can also become more comfortable and inviting places for people to walk and spend time outdoors. As cities continue to grow, protecting existing trees and planting new ones can play an important role in creating healthier and more resilient urban environments."
+            },
+            {
+              "key": "author",
+              "value": "mily Carter"
+            },
+            {
+              "key": "img_url",
+              "value": "https://images.unsplash.com/photo-1511497584788-876760111969"
+            }
+          ]
+        },
+        "description": "Creates a new blog post by submitting the post details as query parameters to the API.\n\n**Endpoint:** `POST /api/posts/add-post`\n\n**Query Parameters:**\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `title` | string | Yes | The title of the blog post. |\n| `subtitle` | string | No | A short subtitle or tagline for the post. |\n| `body` | string | Yes | The main content/body text of the blog post. |\n| `author` | string | Yes | The name of the post's author. |\n| `img_url` | string | No | A URL pointing to the cover image for the post. |\n\n**Notes:**\n- All parameters are passed as query parameters (not in the request body).\n- A successful request creates the post and returns a confirmation response."
+      },
+      "response": []
+    },
+    {
+      "name": "Edit/Update A Post",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5003/api/posts/3?title=The Essential Role of Urban Trees&subtitle=Why cities need more trees than ever&body&author&img_url",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5003",
+          "path": [
+            "api",
+            "posts",
+            "3"
+          ],
+          "query": [
+            {
+              "key": "title",
+              "value": "The Essential Role of Urban Trees"
+            },
+            {
+              "key": "subtitle",
+              "value": "Why cities need more trees than ever"
+            },
+            {
+              "key": "body",
+              "value": ""
+            },
+            {
+              "key": "author",
+              "value": ""
+            },
+            {
+              "key": "img_url",
+              "value": ""
+            }
+          ]
+        },
+        "description": "## Edit/Update A Post\n\nPartially updates an existing blog post by its ID. Only the fields you include in the request will be updated — all other fields remain unchanged.\n\n**Method:** `PATCH`\n**URL:** `http://127.0.0.1:5003/api/posts/:id`\n\nReplace `:id` in the URL with the numeric ID of the post you want to update (e.g. `/api/posts/3`).\n\n---\n\n### Query Parameters\n\nAll query parameters are optional. Include only the ones you want to update.\n\n| Parameter | Description |\n|-----------|-------------|\n| `title` | The new title for the post |\n| `subtitle` | The new subtitle for the post |\n| `body` | The new body/content of the post |\n| `author` | The author of the post |\n| `img_url` | The image URL for the post |\n\n---\n\n### Example\n\nTo update only the title and subtitle of post #3:\n\n```\nPATCH http://127.0.0.1:5003/api/posts/3?title=The Essential Role of Urban Trees&subtitle=Why cities need more trees than ever\n```"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete A Post",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5003/api/posts/delete-post/5?api_key=YourSecretAPI",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5003",
+          "path": [
+            "api",
+            "posts",
+            "delete-post",
+            "5"
+          ],
+          "query": [
+            {
+              "key": "api_key",
+              "value": "YourSecretAPI"
+            }
+          ]
+        },
+        "description": "# Delete A Post\n\nDeletes an existing blog post from the system by its unique post ID. Once deleted, the post is permanently removed and cannot be recovered.\n\n---\n\n## Request Details\n\n| Property | Value |\n|----------|-------|\n| **Method** | `DELETE` |\n| **URL** | `http://127.0.0.1:5003/api/posts/delete-post/:id` |\n\n---\n\n## Path Parameter\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `id` | integer |  Yes | The unique identifier of the post to delete. Example: `2` |\n\n---\n\n## Query Parameter\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `api_key` | string | ✅ Yes | Your secret API key used for authentication. Must be included with every request. |\n\n---\n\n## Expected Response\n\nOn success, the server returns a confirmation that the specified post has been deleted.\n\n- **Status Code:** `200 OK`\n- **Behavior:** The post matching the provided `id` is permanently deleted from the database.\n\n---\n\n## Example Request\n\n```\nDELETE http://127.0.0.1:5003/api/posts/delete-post/2?api_key=YourSecretAPI\n```"
+      },
+      "response": []
+    }
+  ]
+}
