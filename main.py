@@ -92,7 +92,7 @@ def show_post(post_id):
 # ADD NEW POST ROUTE
 @app.route("/new-post", methods=["GET", "POST"])
 def new_post():
-
+    is_edit = False
     # FLASK-FORM OBJECT
     form = MyForm()
 
@@ -110,7 +110,33 @@ def new_post():
 
         return redirect(url_for("get_all_posts"))
 
-    return render_template(template_name_or_list="make-post.html", form=form)
+    return render_template(template_name_or_list="make-post.html", form=form, is_edit=is_edit)
+
+
+# EDIT POST ROUTE
+@app.route("/edit-post/<post_id>", methods=["GET", "POST"])
+def edit_post(post_id):
+
+
+    is_edit = True
+    post_to_edit = db.get_or_404(BlogPost, post_id)
+    edit_post_form = MyForm(blog_post_title=post_to_edit.title, subtitle=post_to_edit.subtitle,
+                            your_name=post_to_edit.author, blog_image_url=post_to_edit.img_url,
+                            blog_content=post_to_edit.body)
+
+    # SAVING THE EDITED POST TO THE DATABASE
+    if edit_post_form.validate_on_submit():
+
+        post_to_edit.title = edit_post_form.blog_post_title.data
+        post_to_edit.subtitle = edit_post_form.subtitle.data
+        post_to_edit.img_url = edit_post_form.blog_image_url.data
+        post_to_edit.author = edit_post_form.your_name.data
+        post_to_edit.body = edit_post_form.blog_content.data
+
+        db.session.commit()
+        return redirect(url_for("show_post", post_id=post_to_edit.id))
+
+    return render_template(template_name_or_list="make-post.html", is_edit=is_edit, form=edit_post_form)
 
 
 # ABOUT ROUTE
