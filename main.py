@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
@@ -65,7 +65,7 @@ with app.app_context():
     db.create_all()
 
 
-# QUERY ALL THE POSTS FORM THE DATABASE
+# QUERY ALL POSTS FORM THE DATABASE
 @app.route("/")
 def get_all_posts():
 
@@ -159,6 +159,33 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template(template_name_or_list="contact.html")
+
+
+# REST API
+
+# GET ALL BLOG POSTS
+@app.route("/api/posts", methods=["GET"])
+def api_get_posts():
+    all_posts = db.session.execute(db.select(BlogPost)).scalars().all()
+
+    all_posts_list = []
+
+    for post in all_posts:
+        post_dict = {
+
+            "id": post.id,
+            "title": post.title,
+            "subtitle": post.subtitle,
+            "date": post.date,
+            "body": post.body,
+            "author": post.author,
+            "img_url": post.img_url
+
+        }
+        all_posts_list.append(post_dict)
+    return jsonify(all_posts_list)
+
+
 
 
 
