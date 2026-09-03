@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, Text
@@ -10,6 +10,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 load_dotenv()
 
@@ -89,11 +90,25 @@ def show_post(post_id):
 
 
 # ADD NEW POST ROUTE
-@app.route("/new-post")
+@app.route("/new-post", methods=["GET", "POST"])
 def new_post():
 
     # FLASK-FORM OBJECT
     form = MyForm()
+
+    if form.validate_on_submit():
+        # GETTING THE DATE (MONT,DAY OF THE MONTH, YEAR)
+        date = datetime.now()
+        formated_date = date.strftime("%B %d, %Y")
+        # SAVING THE NEW POST TO THE DATABASE
+        new_post_to_save = BlogPost(title=form.blog_post_title.data, subtitle=form.subtitle.data,
+                                    date=formated_date, body=form.blog_content.data, author=form.your_name.data,
+                                    img_url=form.blog_image_url.data)
+        db.session.add(new_post_to_save)
+        db.session.commit()
+
+
+        return redirect(url_for("get_all_posts"))
 
     return render_template(template_name_or_list="make-post.html", form=form)
 
