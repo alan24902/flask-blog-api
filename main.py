@@ -281,7 +281,7 @@ def api_delete_post(post_id):
 
     delete_post = db.session.get(entity=BlogPost, ident=post_id)  # IF THE post_id IS NOT IN THE DB RETURN A NONE
 
-    if api_key == "YourSecretAPI":
+    if api_key == os.environ.get("API_KEY"):
 
         if delete_post:
             db.session.delete(delete_post)
