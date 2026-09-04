@@ -200,7 +200,7 @@ The application uses Flask as the backend framework and SQLAlchemy as the ORM la
 
 ----------
 
-## 🗄️ Database
+##  Database
 
 BlogCraft uses SQLite with SQLAlchemy ORM.
 
@@ -441,7 +441,7 @@ The Postman collection contains example requests for:
 
 ### Postman Documentation
 
-📖 **[Click to View BlogCraft API Documentation](https://documenter.getpostman.com/view/57498623/2sBYAvvWKQ)**
+ **[Click to View BlogCraft API Documentation](https://documenter.getpostman.com/view/57498623/2sBYAvvWKQ)**
 
 ### Postman Collection
 
@@ -546,7 +546,7 @@ http://127.0.0.1:5003
 
 ----------
 
-# 📁 Project Structure
+#  Project Structure
 
 ```text
 flask-blog-api/
